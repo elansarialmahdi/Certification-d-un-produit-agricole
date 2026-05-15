@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgriCert — Agricultural Certification DApp</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Syne (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <!-- Ethers.js v6 CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NOISE TEXTURE OVERLAY (aesthetic layer)
+  ═══════════════════════════════════════════ -->
+  <div class="noise-overlay"></div>
+
+  <!-- ═══════════════════════════════════════════
+       HEADER / NAVBAR
+  ═══════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-leaf">⬡</span>
+        <span class="logo-text">AgriCert</span>
+        <span class="logo-badge">DApp</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#register">Register</a>
+        <a href="#certify">Certify</a>
+        <a href="#verify">Verify</a>
+      </nav>
+      <div class="wallet-area">
+        <div id="wallet-info" class="wallet-info hidden">
+          <span class="wallet-dot"></span>
+          <span id="wallet-address" class="wallet-address">0x0000…0000</span>
+        </div>
+        <button id="connectBtn" class="btn btn-connect">
+          <span class="btn-icon">⬡</span> Connect Wallet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Blockchain · Agriculture · Trust</div>
+      <h1 class="hero-title">
+        Certify Every<br/>
+        <span class="hero-accent">Harvest</span> on Chain
+      </h1>
+      <p class="hero-sub">
+        Immutable traceability for agricultural products — from field to consumer.
+        Powered by Ethereum smart contracts.
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" id="stat-batches">0</span>
+          <span class="stat-label">Batches Registered</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">On-Chain &amp; Immutable</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">0</span>
+          <span class="stat-label">Trusted Intermediaries</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="chain-graphic">
+        <div class="chain-block">
+          <span class="cb-icon">🌱</span>
+          <span class="cb-label">Register</span>
+        </div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-block">
+          <span class="cb-icon">🔏</span>
+          <span class="cb-label">Certify</span>
+        </div>
+        <div class="chain-arrow">→</div>
+        <div class="chain-block active">
+          <span class="cb-icon">✅</span>
+          <span class="cb-label">Verified</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       GLOBAL NOTIFICATION BANNER
+  ═══════════════════════════════════════════ -->
+  <div id="notification" class="notification hidden">
+    <span id="notification-icon">✓</span>
+    <span id="notification-msg">Success</span>
+    <button class="notif-close" onclick="closeNotif()">×</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════════ -->
+  <main class="main-content">
+
+    <!-- ─── ROW 1: Register + Certify ─── -->
+    <div class="cards-row">
+
+      <!-- ── REGISTER BATCH CARD ── -->
+      <section class="card" id="register">
+        <div class="card-header">
+          <div class="card-icon-wrap green">
+            <span>🌱</span>
+          </div>
+          <div>
+            <h2 class="card-title">Register Batch</h2>
+            <p class="card-subtitle">Farmer · Open to all connected wallets</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="productName">Product Name</label>
+          <input type="text" id="productName" placeholder="e.g. Heirloom Tomatoes" />
+        </div>
+        <div class="form-group">
+          <label for="origin">Origin / Region</label>
+          <input type="text" id="origin" placeholder="e.g. Agadir, Morocco" />
+        </div>
+        <div class="form-group">
+          <label for="harvestDate">Harvest Date</label>
+          <input type="date" id="harvestDate" />
+        </div>
+
+        <button id="registerBtn" class="btn btn-primary" onclick="registerBatch()">
+          <span class="spinner hidden" id="registerSpinner"></span>
+          Register on Blockchain
+        </button>
+
+        <div id="registerResult" class="tx-result hidden"></div>
+      </section>
+
+      <!-- ── CERTIFY BATCH CARD ── -->
+      <section class="card" id="certify">
+        <div class="card-header">
+          <div class="card-icon-wrap gold">
+            <span>🔏</span>
+          </div>
+          <div>
+            <h2 class="card-title">Certify Batch</h2>
+            <p class="card-subtitle">Authority Only · Owner wallet required</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="certifyId">Batch ID</label>
+          <input type="number" id="certifyId" placeholder="e.g. 1" min="1" />
+        </div>
+        <div class="form-group">
+          <label for="certHash">Certificate Hash</label>
+          <input type="text" id="certHash" placeholder="SHA-256 or IPFS CID of certificate" />
+          <span class="field-hint">Tip: use a document's SHA-256 hash or an IPFS content ID</span>
+        </div>
+
+        <button id="certifyBtn" class="btn btn-gold" onclick="certifyBatch()">
+          <span class="spinner hidden" id="certifySpinner"></span>
+          Certify on Blockchain
+        </button>
+
+        <div id="certifyResult" class="tx-result hidden"></div>
+      </section>
+
+    </div>
+
+    <!-- ─── ROW 2: Verify Batch ─── -->
+    <section class="card card-wide" id="verify">
+      <div class="card-header">
+        <div class="card-icon-wrap blue">
+          <span>🔍</span>
+        </div>
+        <div>
+          <h2 class="card-title">Verify Batch</h2>
+          <p class="card-subtitle">Public · No wallet required to read</p>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <input type="number" id="searchId" placeholder="Enter Batch ID…" min="1" />
+        <button class="btn btn-search" onclick="getBatch()">
+          <span class="spinner hidden" id="searchSpinner"></span>
+          Search
+        </button>
+      </div>
+
+      <!-- Batch Result Display -->
+      <div id="batchResult" class="batch-result hidden">
+        <div class="batch-status-bar">
+          <div class="batch-id-tag">Batch <span id="res-id">#1</span></div>
+          <div id="res-certified-badge" class="badge badge-pending">⏳ Pending</div>
+        </div>
+
+        <div class="batch-grid">
+          <div class="batch-field">
+            <span class="field-label">Product Name</span>
+            <span class="field-value" id="res-product">—</span>
+          </div>
+          <div class="batch-field">
+            <span class="field-label">Origin</span>
+            <span class="field-value" id="res-origin">—</span>
+          </div>
+          <div class="batch-field">
+            <span class="field-label">Harvest Date</span>
+            <span class="field-value" id="res-harvest">—</span>
+          </div>
+          <div class="batch-field">
+            <span class="field-label">Registered At</span>
+            <span class="field-value" id="res-created">—</span>
+          </div>
+          <div class="batch-field full-width">
+            <span class="field-label">Farmer Address</span>
+            <span class="field-value mono" id="res-farmer">—</span>
+          </div>
+          <div class="batch-field full-width">
+            <span class="field-label">Certifier Address</span>
+            <span class="field-value mono" id="res-certifier">—</span>
+          </div>
+          <div class="batch-field full-width">
+            <span class="field-label">Certificate Hash</span>
+            <span class="field-value mono" id="res-hash">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="verifyError" class="tx-result tx-error hidden"></div>
+    </section>
+
+    <!-- ─── INFO CARDS ─── -->
+    <div class="info-row">
+      <div class="info-card">
+        <span class="info-icon">🔗</span>
+        <h3>Immutability</h3>
+        <p>Once registered, batch data cannot be altered or deleted from the blockchain.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🌍</span>
+        <h3>Traceability</h3>
+        <p>Every batch carries its full origin, harvest date, and farmer identity on-chain.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🔐</span>
+        <h3>Access Control</h3>
+        <p>Only the certification authority (contract owner) can certify batches.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">👁</span>
+        <h3>Transparency</h3>
+        <p>All data is publicly verifiable — anyone can audit the blockchain at any time.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-leaf">⬡</span> AgriCert DApp
+      </div>
+      <p class="footer-text">University Mini-Project · Blockchain · Agriculture · 2025</p>
+      <p class="footer-tech">Solidity · Ethers.js v6 · Ganache · MetaMask · Remix IDE</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
