@@ -1,138 +1,138 @@
 # 🌱 AgriCert DApp
-### Certification de Produits Agricoles sur la Blockchain
+### Agricultural Product Certification on the Blockchain
 
-> **Mini-Projet Universitaire** · Blockchain · Agriculture · Agroalimentaire
-> Année Académique 2024–2025
-
----
-
-## 1. 📌 Titre du Projet
-
-**AgriCert** — Application Décentralisée de Certification de Produits Agricoles
+> **Mini University Project** · Blockchain · Agriculture · Agri-Food
+> Academic Year 2024–2025
 
 ---
 
-## 2. 🌾 Secteur Choisi
+## 1. 📌 Project Title
 
-**Agriculture / Agroalimentaire**
-
-Ce secteur souffre d'un manque de transparence dans la chaîne d'approvisionnement : les consommateurs ne peuvent pas vérifier l'origine réelle d'un produit, et les certifications papier sont facilement falsifiables. AgriCert répond à ce problème en utilisant la blockchain comme registre public, immuable et vérifiable.
+**AgriCert** — Decentralized Application for Agricultural Product Certification
 
 ---
 
-## 3. 🎯 Objectif de la DApp
+## 2. 🌾 Chosen Sector
 
-AgriCert permet de :
+**Agriculture / Agri-Food**
 
-- **Enregistrer** des lots de produits agricoles sur la blockchain (par l'agriculteur)
-- **Certifier** ces lots par une autorité de certification reconnue
-- **Vérifier** publiquement l'authenticité et la traçabilité de tout lot, sans intermédiaire
-
-L'objectif final est de **remplacer les certificats papier falsifiables** par des enregistrements blockchain immuables, accessibles à tous et vérifiables instantanément.
+This sector suffers from a lack of transparency in the supply chain: consumers cannot verify the real origin of a product, and paper certificates are easily falsifiable. AgriCert addresses this problem by using the blockchain as a public, immutable, and verifiable registry.
 
 ---
 
-## 4. ❓ Analyse du Cas d'Usage — Étape 2
+## 3. 🎯 DApp Objective
 
-### 4.1 Quel problème veut-on résoudre ?
+AgriCert enables:
 
-Dans le secteur agricole, la certification des produits repose encore largement sur des documents papier ou des bases de données centralisées, ce qui pose plusieurs problèmes :
+- **Registering** agricultural product batches on the blockchain (by the farmer)
+- **Certifying** those batches by a recognized certification authority
+- **Publicly verifying** the authenticity and traceability of any batch, without an intermediary
 
-- **Falsification facile** des certificats d'origine et de qualité
-- **Manque de transparence** entre les producteurs, les distributeurs et les consommateurs
-- **Absence de traçabilité** fiable du champ jusqu'à l'assiette
-- **Dépendance à des tiers de confiance** (organismes centralisés) coûteux et lents
-- **Fraude à l'origine** : produits étrangers vendus comme locaux ou biologiques
-
-AgriCert résout ces problèmes en enregistrant chaque certification directement sur la blockchain Ethereum, rendant les données **publiques, immuables et vérifiables sans tiers**.
+The ultimate goal is to **replace falsifiable paper certificates** with immutable blockchain records, accessible to everyone and instantly verifiable.
 
 ---
 
-### 4.2 Qui sont les acteurs ?
+## 4. ❓ Use Case Analysis — Step 2
 
-| Acteur | Rôle | Droits dans le système |
+### 4.1 What problem are we solving?
+
+In the agricultural sector, product certification still relies heavily on paper documents or centralized databases, which causes several problems:
+
+- **Easy falsification** of certificates of origin and quality
+- **Lack of transparency** between producers, distributors, and consumers
+- **Absence of reliable traceability** from field to table
+- **Dependency on trusted third parties** (centralized organizations) — costly and slow
+- **Origin fraud**: foreign products sold as local or organic
+
+AgriCert solves these problems by recording each certification directly on the Ethereum blockchain, making data **public, immutable, and verifiable without a third party**.
+
+---
+
+### 4.2 Who are the actors?
+
+| Actor | Role | Rights in the System |
 |---|---|---|
-| 🧑‍🌾 **Agriculteur** | Producteur du lot agricole | Enregistre un nouveau lot (nom, origine, date de récolte) |
-| 🏛️ **Autorité de Certification** | Organisme certificateur (propriétaire du contrat) | Certifie un lot en attachant un hash de certificat officiel |
-| 🌍 **Utilisateur Public** | Consommateur, distributeur, inspecteur | Consulte et vérifie les informations d'un lot par son ID |
+| 🧑‍🌾 **Farmer** | Producer of the agricultural batch | Registers a new batch (name, origin, harvest date) |
+| 🏛️ **Certification Authority** | Certifying body (contract owner) | Certifies a batch by attaching an official certificate hash |
+| 🌍 **Public User** | Consumer, distributor, inspector | Consults and verifies batch information by its ID |
 
-> L'autorité de certification est le **compte qui a déployé le smart contract** (le `owner`). Elle est la seule à pouvoir valider une certification.
+> The certification authority is the **account that deployed the smart contract** (the `owner`). It is the only one that can validate a certification.
 
 ---
 
-### 4.3 Quelles données seront stockées ON-CHAIN ?
+### 4.3 What data will be stored ON-CHAIN?
 
-Les données on-chain sont **permanentes, publiques et immuables** une fois écrites sur la blockchain.
+On-chain data is **permanent, public, and immutable** once written to the blockchain.
 
-| Donnée | Type Solidity | Justification |
+| Field | Solidity Type | Justification |
 |---|---|---|
-| `id` | `uint` | Identifiant unique auto-incrémenté du lot |
-| `productName` | `string` | Nom du produit agricole (ex. "Tomates") |
-| `origin` | `string` | Région/pays d'origine du produit |
-| `harvestDate` | `string` | Date de récolte déclarée par l'agriculteur |
-| `certified` | `bool` | Statut de certification (vrai/faux) |
-| `certificateHash` | `string` | Empreinte cryptographique du document de certification |
-| `farmer` | `address` | Adresse Ethereum de l'agriculteur (preuve d'identité) |
-| `certifier` | `address` | Adresse Ethereum de l'autorité certificatrice |
-| `createdAt` | `uint` | Horodatage blockchain de l'enregistrement |
+| `id` | `uint` | Auto-incremented unique batch identifier |
+| `productName` | `string` | Name of the agricultural product (e.g. "Tomatoes") |
+| `origin` | `string` | Region/country of origin declared by the farmer |
+| `harvestDate` | `string` | Harvest date declared by the farmer |
+| `certified` | `bool` | Certification status (true/false) |
+| `certificateHash` | `string` | Cryptographic fingerprint of the certification document |
+| `farmer` | `address` | Ethereum address of the farmer (proof of identity) |
+| `certifier` | `address` | Ethereum address of the certifying authority |
+| `createdAt` | `uint` | Blockchain timestamp of the registration |
 
-> Ces données sont stockées dans un `mapping(uint => Batch)` dans le smart contract.
+> These fields are stored in a `mapping(uint => Batch)` inside the smart contract.
 
 ---
 
-### 4.4 Quelles données resteront OFF-CHAIN ?
+### 4.4 What data will remain OFF-CHAIN?
 
-Les données off-chain sont **trop volumineuses ou sensibles** pour être stockées directement sur la blockchain (coût en gas trop élevé, vie privée, etc.).
+Off-chain data is **too large or sensitive** to store directly on the blockchain (high gas cost, privacy, etc.).
 
-| Donnée | Stockage suggéré | Raison |
+| Data | Suggested Storage | Reason |
 |---|---|---|
-| **Document PDF du certificat** | IPFS / Serveur de l'autorité | Fichier volumineux, non adapté à la blockchain |
-| **Photos du produit / du champ** | IPFS / Cloud | Médias binaires, trop lourds pour être on-chain |
-| **Données personnelles de l'agriculteur** | Base de données privée | Conformité RGPD / protection de la vie privée |
-| **Rapports d'inspection détaillés** | Système interne de l'autorité | Documents internes confidentiels |
-| **Informations logistiques** (transport, température) | Base de données IoT | Données en temps réel, volume trop important |
-| **Numéros de téléphone / emails** | Base de données privée | Données personnelles sensibles |
+| **PDF certificate document** | IPFS / Authority server | Large file, not suitable for the blockchain |
+| **Product/field photos** | IPFS / Cloud | Binary media, too heavy for on-chain storage |
+| **Farmer personal data** | Private database | GDPR compliance / privacy protection |
+| **Detailed inspection reports** | Authority internal system | Confidential internal documents |
+| **Logistics data** (transport, temperature) | IoT database | Real-time data, too high volume |
+| **Phone numbers / emails** | Private database | Sensitive personal data |
 
-> Le lien entre on-chain et off-chain se fait via le **`certificateHash`** : c'est l'empreinte SHA-256 (ou le CID IPFS) du document stocké hors chaîne. Quiconque possède le document peut vérifier qu'il correspond au hash enregistré sur la blockchain.
+> The link between on-chain and off-chain is made via the **`certificateHash`**: it is the SHA-256 hash (or IPFS CID) of the document stored off-chain. Anyone with the document can verify that it matches the hash recorded on the blockchain.
 
 ---
 
-### 4.5 Pourquoi utiliser la Blockchain ?
+### 4.5 Why use the Blockchain?
 
-| Concept Blockchain | Application concrète dans AgriCert |
+| Blockchain Concept | Concrete Application in AgriCert |
 |---|---|
-| **Immuabilité** | Une fois un lot enregistré, ses données ne peuvent plus être modifiées ni supprimées |
-| **Transparence** | Tout le monde peut consulter les informations d'un lot sans permission |
-| **Traçabilité** | L'adresse de l'agriculteur et l'horodatage prouvent l'origine et le moment de l'enregistrement |
-| **Décentralisation** | Aucune entité centrale ne contrôle les données — elles appartiennent à la blockchain |
-| **Confiance sans tiers** | Un consommateur peut vérifier une certification sans contacter l'organisme certificateur |
-| **Preuve cryptographique** | Le `certificateHash` lie le document physique à l'enregistrement blockchain de façon vérifiable |
-| **Contrôle d'accès** | Seul le propriétaire du contrat (autorité) peut certifier — garanti par le code, pas par la confiance |
+| **Immutability** | Once a batch is registered, its data can no longer be modified or deleted |
+| **Transparency** | Anyone can consult batch information without permission |
+| **Traceability** | The farmer's address and timestamp prove the origin and moment of registration |
+| **Decentralization** | No central entity controls the data — it belongs to the blockchain |
+| **Trustless** | A consumer can verify a certification without contacting the certifying body |
+| **Cryptographic Proof** | The `certificateHash` links the physical document to the blockchain record in a verifiable way |
+| **Access Control** | Only the contract owner (authority) can certify — guaranteed by code, not by trust |
 
-La blockchain est justifiée ici car **plusieurs parties qui ne se font pas confiance** (agriculteurs, autorités, consommateurs) ont besoin d'un **registre commun et neutre**. Un système centralisé pourrait être manipulé par l'une des parties.
+The blockchain is justified here because **several parties who do not trust each other** (farmers, authorities, consumers) need a **common and neutral registry**. A centralized system could be manipulated by one of the parties.
 
 ---
 
-### 4.6 Quelles sont les limites de la solution ?
+### 4.6 What are the limitations of the solution?
 
-| Limite | Explication |
+| Limitation | Explanation |
 |---|---|
-| **Blockchain locale uniquement** | Le projet utilise Ganache (réseau local). Un déploiement sur un réseau public (Sepolia, Polygon) serait nécessaire pour une vraie utilisation |
-| **Identité non vérifiée** | N'importe qui peut s'enregistrer comme "agriculteur" — il n'y a pas de vérification d'identité réelle (KYC) |
-| **Une seule autorité** | Un seul compte peut certifier. Si la clé privée du propriétaire est perdue, le système est bloqué |
-| **Données off-chain non garanties** | Le hash garantit l'intégrité du document, mais pas sa disponibilité (si le fichier PDF est supprimé du serveur, le hash seul ne suffit pas) |
-| **Coût en gas** | Sur un réseau public, chaque enregistrement et chaque certification coûtent des frais de transaction (gas) |
-| **Pas de mise à jour possible** | La blockchain est immuable : une erreur dans un enregistrement (faute de frappe, mauvaise date) ne peut pas être corrigée |
-| **Scalabilité** | Ethereum mainnet est limité en débit de transactions (~15 tx/s), ce qui peut poser problème à grande échelle |
-| **Interface en anglais** | L'interface frontend est en anglais — une localisation serait nécessaire pour les agriculteurs locaux |
+| **Local blockchain only** | The project uses Ganache (local network). Deployment on a public network (Sepolia, Polygon) would be required for real use |
+| **Unverified identity** | Anyone can register as a "farmer" — there is no real identity verification (KYC) |
+| **Single authority** | Only one account can certify. If the owner's private key is lost, the system is blocked |
+| **Off-chain data not guaranteed** | The hash guarantees document integrity, but if the PDF is deleted from the server, the hash alone becomes useless |
+| **Gas cost** | On a public network, each registration and certification incurs transaction fees (gas) paid in ETH |
+| **No updates possible** | The blockchain is immutable: an error in a record (typo, wrong date) cannot be corrected |
+| **Scalability** | Ethereum mainnet is limited in transaction throughput (~15 tx/s), which may be a problem at scale |
+| **English-only interface** | The frontend is in English — localization would be needed for local farmers |
 
 ---
 
-## 5. ⚙️ Fonctions du Smart Contract
+## 5. ⚙️ Smart Contract Functions
 
-### Contrat : `AgriculturalCertification.sol` (Solidity `^0.8.20`)
+### Contract: `AgriculturalCertification.sol` (Solidity `^0.8.20`)
 
-#### Struct principale
+#### Main Struct
 
 ```solidity
 struct Batch {
@@ -148,193 +148,192 @@ struct Batch {
 }
 ```
 
-#### Fonctions
+#### Functions
 
-| Fonction | Accès | Description |
+| Function | Access | Description |
 |---|---|---|
-| `registerBatch(productName, origin, harvestDate)` | Tout utilisateur connecté | Crée un nouveau lot avec un ID unique et l'horodate |
-| `certifyBatch(id, certificateHash)` | Propriétaire uniquement (`onlyOwner`) | Marque un lot comme certifié et enregistre le hash du certificat |
-| `getBatch(id)` | Public (lecture gratuite) | Retourne toutes les informations d'un lot par son ID |
-| `getBatchCount()` | Public (lecture gratuite) | Retourne le nombre total de lots enregistrés |
-| `transferOwnership(newOwner)` | Propriétaire uniquement | Transfère les droits de certification à une nouvelle adresse |
+| `registerBatch(productName, origin, harvestDate)` | Any connected user | Creates a new batch with a unique ID and timestamps it |
+| `certifyBatch(id, certificateHash)` | Owner only (`onlyOwner`) | Marks a batch as certified and records the certificate hash |
+| `getBatch(id)` | Public (free read) | Returns all information for a batch by its ID |
+| `getBatchCount()` | Public (free read) | Returns the total number of registered batches |
+| `transferOwnership(newOwner)` | Owner only | Transfers certification rights to a new address |
 
-#### Modificateurs
+#### Modifiers
 
-| Modificateur | Rôle |
+| Modifier | Role |
 |---|---|
-| `onlyOwner` | Restreint l'accès aux fonctions sensibles au seul propriétaire du contrat |
-| `batchExists(id)` | Vérifie qu'un lot avec cet ID existe avant d'exécuter une fonction |
+| `onlyOwner` | Restricts access to sensitive functions to the contract owner only |
+| `batchExists(id)` | Verifies that a batch with this ID exists before executing a function |
 
-#### Événements émis
+#### Emitted Events
 
-| Événement | Paramètres | Déclenchement |
+| Event | Parameters | Trigger |
 |---|---|---|
-| `BatchRegistered` | `id`, `productName`, `farmer` | À chaque nouveau lot enregistré |
-| `BatchCertified` | `id`, `certificateHash`, `certifier` | À chaque lot certifié |
-| `OwnershipTransferred` | `previousOwner`, `newOwner` | Au déploiement et à chaque transfert de propriété |
+| `BatchRegistered` | `id`, `productName`, `farmer` | On each newly registered batch |
+| `BatchCertified` | `id`, `certificateHash`, `certifier` | On each certified batch |
+| `OwnershipTransferred` | `previousOwner`, `newOwner` | On deployment and on each ownership transfer |
 
 ---
 
-## 6. 🛠️ Outils Utilisés
+## 6. 🛠️ Tools Used
 
-| Couche | Outil | Version / Notes |
+| Layer | Tool | Version / Notes |
 |---|---|---|
 | Smart Contract | **Solidity** | `^0.8.20` |
-| IDE & Déploiement | **Remix IDE** | [remix.ethereum.org](https://remix.ethereum.org) |
-| Blockchain Locale | **Ganache** | Réseau local `http://127.0.0.1:7545` |
-| Portefeuille | **MetaMask** | Extension navigateur Chrome/Firefox |
-| Interface Frontend | **HTML5 + CSS3 + JavaScript** | Vanilla JS, aucun framework |
-| Bibliothèque Blockchain | **Ethers.js v6** | Chargé via CDN |
-| Serveur de Développement | **VS Code Live Server** | Extension VS Code |
+| IDE & Deployment | **Remix IDE** | [remix.ethereum.org](https://remix.ethereum.org) |
+| Local Blockchain | **Ganache** | Local network `http://127.0.0.1:7545` |
+| Wallet | **MetaMask** | Chrome/Firefox browser extension |
+| Frontend Interface | **HTML5 + CSS3 + JavaScript** | Vanilla JS, no framework |
+| Blockchain Library | **Ethers.js v6** | Loaded via CDN |
+| Dev Server | **VS Code Live Server** | VS Code extension |
 
 ---
 
-## 7. 📁 Architecture du Projet
+## 7. 📁 Project Architecture
 
 ```
 AgriCert/
 ├── contracts/
-│   └── AgriculturalCertification.sol   # Smart contract Solidity (logique métier)
+│   └── AgriculturalCertification.sol   # Solidity smart contract (business logic)
 ├── frontend/
-│   ├── index.html                       # Interface utilisateur principale
-│   ├── style.css                        # Styles (thème vert agriculture, dark mode)
-│   └── app.js                           # Connexion MetaMask + appels contrat (Ethers.js v6)
-└── README.md                            # Documentation complète du projet
+│   ├── index.html                       # Main user interface
+│   ├── style.css                        # Styles (green agriculture theme, dark mode)
+│   └── app.js                           # MetaMask connection + contract calls (Ethers.js v6)
+└── README.md                            # Full project documentation
 ```
 
 ---
 
-## 8. 🚀 Étapes d'Exécution
+## 8. 🚀 Execution Steps
 
-### Prérequis
+### Prerequisites
 
-- [Ganache](https://trufflesuite.com/ganache/) installé
-- [MetaMask](https://metamask.io/) installé dans le navigateur
-- [VS Code](https://code.visualstudio.com/) + extension **Live Server**
-- Navigateur Chrome ou Firefox
-
----
-
-### Étape 1 — Lancer Ganache
-
-1. Ouvrez Ganache et cliquez sur **"Quickstart Ethereum"**
-2. Notez l'URL RPC : `HTTP://127.0.0.1:7545` et le Network ID : `1337`
-3. Laissez Ganache ouvert
+- [Ganache](https://trufflesuite.com/ganache/) installed
+- [MetaMask](https://metamask.io/) installed in the browser
+- [VS Code](https://code.visualstudio.com/) + **Live Server** extension
+- Chrome or Firefox browser
 
 ---
 
-### Étape 2 — Configurer MetaMask
+### Step 1 — Launch Ganache
 
-1. Ouvrez MetaMask → menu réseaux → **"Ajouter un réseau manuellement"**
-2. Remplissez :
-   - Nom : `Ganache Local`
-   - RPC : `http://127.0.0.1:7545`
-   - Chain ID : `1337`
-   - Symbole : `ETH`
-3. Importez deux comptes Ganache (icône 🔑) dans MetaMask :
-   - **Compte 1** = Propriétaire / Autorité de certification
-   - **Compte 2** = Agriculteur
+1. Open Ganache and click **"Quickstart Ethereum"**
+2. Note the RPC URL: `HTTP://127.0.0.1:7545` and Network ID: `1337`
+3. Keep Ganache open
 
 ---
 
-### Étape 3 — Déployer le Contrat avec Remix
+### Step 2 — Configure MetaMask
 
-1. Allez sur [https://remix.ethereum.org](https://remix.ethereum.org)
-2. Créez le fichier `AgriculturalCertification.sol` et collez le code du contrat
-3. Onglet **Compilateur** → version `0.8.20` → **Compiler**
-4. Onglet **Deploy & Run** → Environment : **"Injected Provider - MetaMask"**
-5. Sélectionnez `AgriculturalCertification` → **Deploy** → Confirmez dans MetaMask
-6. Copiez l'**adresse du contrat** déployé
-7. Copiez l'**ABI** depuis l'onglet Compilateur
+1. Open MetaMask → networks menu → **"Add a network manually"**
+2. Fill in:
+   - Name: `Ganache Local`
+   - RPC: `http://127.0.0.1:7545`
+   - Chain ID: `1337`
+   - Symbol: `ETH`
+3. Import two Ganache accounts (🔑 icon) into MetaMask:
+   - **Account 1** = Owner / Certification Authority
+   - **Account 2** = Farmer
 
 ---
 
-### Étape 4 — Configurer le Frontend
+### Step 3 — Deploy the Contract with Remix
 
-Ouvrez `frontend/app.js` et remplacez :
+1. Go to [https://remix.ethereum.org](https://remix.ethereum.org)
+2. Create the file `AgriculturalCertification.sol` and paste the contract code
+3. **Compiler** tab → version `0.8.20` → **Compile**
+4. **Deploy & Run** tab → Environment: **"Injected Provider - MetaMask"**
+5. Select `AgriculturalCertification` → **Deploy** → Confirm in MetaMask
+6. Copy the deployed **contract address**
+7. Copy the **ABI** from the Compiler tab
+
+---
+
+### Step 4 — Configure the Frontend
+
+Open `frontend/app.js` and replace:
 
 ```javascript
-const CONTRACT_ADDRESS = "0xVotreAdresseIci";   // ← adresse copiée depuis Remix
-const CONTRACT_ABI = [ /* ... collez l'ABI ici ... */ ];
+const CONTRACT_ADDRESS = "0xYourAddressHere";   // ← address copied from Remix
+const CONTRACT_ABI = [ /* ... paste the ABI here ... */ ];
 ```
 
 ---
 
-### Étape 5 — Lancer l'Interface
+### Step 5 — Launch the Interface
 
-1. Ouvrez le dossier `frontend/` dans VS Code
-2. Clic droit sur `index.html` → **"Open with Live Server"**
-3. Le navigateur ouvre `http://127.0.0.1:5500/frontend/index.html`
-4. Cliquez sur **"Connect Wallet"** → acceptez dans MetaMask
-
----
-
-### Flux d'utilisation complet
-
-```
-[Agriculteur]  →  Remplit le formulaire  →  registerBatch()  →  Tx confirmée ✓
-[Autorité]     →  Entre l'ID + hash      →  certifyBatch()   →  Tx confirmée ✓
-[Public]       →  Entre l'ID             →  getBatch()       →  Résultat affiché ✓
-```
+1. Open the `frontend/` folder in VS Code
+2. Right-click on `index.html` → **"Open with Live Server"**
+3. The browser opens `http://127.0.0.1:5500/frontend/index.html`
+4. Click **"Connect Wallet"** → accept in MetaMask
 
 ---
 
-## 9. 📸 Captures d'Écran Principales
+### Complete Usage Flow
 
-> Remplacez ces espaces par de vraies captures après avoir exécuté le projet.
+```
+[Farmer]    →  Fills the form      →  registerBatch()  →  Tx confirmed ✓
+[Authority] →  Enters ID + hash    →  certifyBatch()   →  Tx confirmed ✓
+[Public]    →  Enters the ID       →  getBatch()       →  Result displayed ✓
+```
 
-| N° | Fichier | Description |
+---
+
+## 9. 📸 Main Screenshots
+
+> Replace these placeholders with real screenshots after running the project.
+
+| # | File | Description |
 |---|---|---|
-| 1 | `screenshots/01_ganache.png` | Ganache lancé avec les comptes de test et les soldes ETH |
-| 2 | `screenshots/02_metamask_reseau.png` | MetaMask connecté au réseau Ganache Local |
-| 3 | `screenshots/03_remix_compilation.png` | Contrat compilé sans erreur dans Remix |
-| 4 | `screenshots/04_remix_deploiement.png` | Confirmation de déploiement dans MetaMask |
-| 5 | `screenshots/05_accueil_connecte.png` | Page d'accueil AgriCert avec le portefeuille connecté |
-| 6 | `screenshots/06_enregistrement_form.png` | Formulaire d'enregistrement de lot rempli |
-| 7 | `screenshots/07_metamask_tx.png` | Pop-up MetaMask de confirmation de transaction |
-| 8 | `screenshots/08_lot_certifie.png` | Résultat de vérification affichant le badge ✓ Certifié |
-| 9 | `screenshots/09_lot_en_attente.png` | Résultat de vérification affichant le badge ⏳ En attente |
-| 10 | `screenshots/10_erreur_acces.png` | Erreur renvoyée lors d'une tentative de certification non autorisée |
+| 1 | ![Ganache](images/image.png) | Ganache launched with test accounts and ETH balances |
+| 2 | ![MetaMask network](images/image-1.png)  | MetaMask connected to the Ganache Local network |
+| 3 | ![Remix compile](images/image-3.png) | Contract compiled without errors in Remix |
+| 4 | ![Deploy confirm](images/image-4.png) | Deployment confirmation in MetaMask |
+| 5 | ![Home page](images/image-5.png) | AgriCert home page with connected wallet |
+| 6 | ![Register form](images/image-6.png) | Batch registration form filled in |
+| 7 | ![MetaMask popup](images/image-7.png)  | MetaMask transaction confirmation pop-up |
+| 8 | ![Certified](images/image-8.png) | Verification result showing the ✓ Certified badge |
+| 9 | ![Pending](images/image-9.png) | Verification result showing the ⏳ Pending badge |
 
 ---
 
-## 10. ⚠️ Limites du Projet
+## 10. ⚠️ Project Limitations
 
-1. **Blockchain locale uniquement** — Ganache est un réseau de test local. Pour une vraie utilisation, il faudrait déployer sur un réseau public (Sepolia, Polygon).
-2. **Identité non vérifiée (pas de KYC)** — N'importe quel portefeuille peut s'enregistrer comme agriculteur. Il n'y a pas de vérification d'identité réelle.
-3. **Autorité de certification unique** — Un seul compte (`owner`) peut certifier des lots. La perte de la clé privée bloquerait le système.
-4. **Données off-chain non garanties** — Le hash garantit l'intégrité du document, mais si le fichier PDF est supprimé du serveur, le hash seul devient inutile.
-5. **Données non modifiables** — En cas d'erreur de saisie (mauvaise date, faute de frappe), il est impossible de corriger un enregistrement — la blockchain est immuable.
-6. **Coût en gas** — Sur un réseau public, chaque transaction (enregistrement, certification) engendre des frais payés en ETH.
-7. **Pas de liste des lots** — L'interface ne permet pas de lister tous les lots. L'utilisateur doit connaître l'ID du lot à rechercher.
-8. **Interface en anglais** — L'interface n'est pas localisée en français ou en arabe pour les agriculteurs locaux.
+1. **Local blockchain only** — Ganache is a local test network. For real use, deployment on a public network (Sepolia, Polygon) would be necessary.
+2. **Unverified identity (no KYC)** — Any wallet can register as a farmer. There is no real identity verification.
+3. **Single certification authority** — Only one account (`owner`) can certify batches. Loss of the private key would block the system.
+4. **Off-chain data not guaranteed** — The hash guarantees document integrity, but if the PDF is deleted from the server, the hash alone becomes useless.
+5. **Data is non-modifiable** — In case of an input error (wrong date, typo), it is impossible to correct a record — the blockchain is immutable.
+6. **Gas cost** — On a public network, each transaction (registration, certification) incurs fees paid in ETH.
+7. **No batch listing** — The interface does not allow listing all batches. The user must know the ID of the batch to search for.
+8. **English-only interface** — The interface is not localized in French or Arabic for local farmers.
 
 ---
 
-## 11. 🚀 Améliorations Possibles
+## 11. 🚀 Possible Improvements
 
-| Priorité | Amélioration | Description |
+| Priority | Improvement | Description |
 |---|---|---|
-| 🔴 Haute | **Déploiement sur réseau public** | Déployer sur Sepolia ou Polygon Mumbai pour un environnement réel |
-| 🔴 Haute | **Intégration IPFS** | Stocker les PDFs de certificats sur IPFS, enregistrer le CID on-chain pour garantir la disponibilité |
-| 🟡 Moyenne | **Système multi-certificateurs** | Permettre à plusieurs autorités agréées de certifier (via `AccessControl` d'OpenZeppelin) |
-| 🟡 Moyenne | **Liste et pagination des lots** | Afficher tous les lots enregistrés dans un tableau paginé |
-| 🟡 Moyenne | **Génération de QR Code** | Générer un QR code par lot qui pointe vers sa page de vérification publique |
-| 🟢 Basse | **Vérification d'identité (KYC)** | Lier les adresses Ethereum à des identités vérifiées (agriculteurs enregistrés) |
-| 🟢 Basse | **Application mobile** | Frontend React Native pour une utilisation terrain par les agriculteurs |
-| 🟢 Basse | **Mise à jour par étapes** | Permettre d'ajouter des checkpoints (transport, stockage, vente) à chaque lot |
-| 🟢 Basse | **Localisation** | Traduire l'interface en français et en arabe |
+| 🔴 High | **Public network deployment** | Deploy on Sepolia or Polygon Mumbai for a real environment |
+| 🔴 High | **IPFS integration** | Store certificate PDFs on IPFS, record the CID on-chain to guarantee availability |
+| 🟡 Medium | **Multi-certifier system** | Allow multiple accredited authorities to certify (via OpenZeppelin `AccessControl`) |
+| 🟡 Medium | **Batch listing & pagination** | Display all registered batches in a paginated table |
+| 🟡 Medium | **QR Code generation** | Generate a QR code per batch pointing to its public verification page |
+| 🟢 Low | **Identity verification (KYC)** | Link Ethereum addresses to verified identities (registered farmers) |
+| 🟢 Low | **Mobile application** | React Native frontend for field use by farmers |
+| 🟢 Low | **Step-by-step updates** | Allow adding checkpoints (transport, storage, sale) to each batch |
+| 🟢 Low | **Localization** | Translate the interface into French and Arabic |
 
 ---
 
-## 👨‍💻 Auteurs
-
-> Mini-Projet Universitaire — Blockchain dans l'Agriculture
-> Année Académique 2024–2025
+## 👨‍💻 Authors
+EL ANSARI AL MAHDI
+> Mini University Project — Blockchain in Agriculture
+> Academic Year 2025–2026
 
 ---
 
-## 📜 Licence
+## 📜 License
 
-Ce projet est à des fins éducatives uniquement.
-Licence MIT — libre d'utilisation, de modification et de distribution.
+This project is for educational purposes only.
+MIT License — free to use, modify, and distribute.
